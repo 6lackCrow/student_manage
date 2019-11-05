@@ -2,6 +2,10 @@ package com.crow.student_manage.controller;
 
 import com.crow.student_manage.entity.Student;
 import com.crow.student_manage.service.StudentService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +41,11 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> findAllStudent(){
-        return studentService.findAllStudent();
+    public Object findAllStudent(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "2") Integer size){
+        //return studentService.findAllStudent();
+        Pageable pageable = PageRequest.of(page,size);
+        Page<Student> all = (Page<Student>) studentService.findAllStudent(pageable);
+        return all;
     }
 
     @GetMapping("/{sid}")

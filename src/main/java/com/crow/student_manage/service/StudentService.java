@@ -2,6 +2,7 @@ package com.crow.student_manage.service;
 
 import com.crow.student_manage.entity.Student;
 import com.crow.student_manage.repository.StudentRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +24,8 @@ public class StudentService {
         return row;
     }
 
-    public List<Student> findAllStudent(){
-        return studentRepository.findAll();
+    public Object findAllStudent(Pageable pageable){
+        return studentRepository.findAll(pageable);
     }
 
     public Student findStudentBySid(String sid){
